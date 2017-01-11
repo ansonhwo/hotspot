@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hotspot</title>
+    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Oswald:300,400,700" rel="stylesheet">
+  </head>
+  <body>
+    <div id="logo">
+      <img src="../images/hotspot.png">
+    </div>
+    <div id="app">
+      {{ message }}
+    </div>
+    <div id="app2">
+      <span v-bind:title="message">
+        Hover your mouse over me for a few seconds to see my dynamically bound title
+      </span>
+    </div>
+    <div id="app3">
+      <p v-if="seen">Now you see me</p>
+    </div>
+    <div id="app4">
+      <ol>
+        <li v-for="todo in todos">
+          {{ todo.text }}
+        </li>
+      </ol>
+    </div>
+    <div id="app5">
+      <p>{{ message }}</p>
+      <button v-on:click="reverseMessage">Reverse Message</button>
+    </div>
+    <div id="app6">
+      <p>{{ message }}</p>
+      <input v-model="message">
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
