@@ -4,3 +4,32 @@ body {
   font-family: 'Open Sans', sans-serif;
   margin: 0;
 }
+
+#logo {
+  color: #ff9046;
+  text-align: center;
+}
+
+#logo > .logotext {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+}
+
+#logo > .logodot {
+  font-size: 100px;
+}
+
+#search-container {
+  margin-top: 20px;
+}
+
+#search {
+  width: 50vw;
+}
+
+#search > .button {
+  width: 100px;
+  color: #fff;
+  background-color: #ff9046;
+}
