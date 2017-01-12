@@ -21,7 +21,18 @@ app.get('/search/events', (req, res) => {
   const query = urlquery.substring(urlquery.indexOf('=') + 1).split('+')
 
   query.map((word) => {
-
+    knex('allevents')
+      .select()
+      .whereIn('title', function() {
+        this.select('title').from('allevents')
+      })
+      .orWhereIn('host', function() {
+        this.select('host').from('allevents')
+      })
+      .orWhereIn('desc', function() {
+        this.select('desc').from('allevents')
+      })
+      .then((result) => console.log(result))
   })
 
   res.send({ 'query': query })
