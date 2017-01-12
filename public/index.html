@@ -9,14 +9,28 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Oswald:300,400,700" rel="stylesheet">
   </head>
   <body>
-    <div id="logo">
+    <!--<div id="logo">
       <span class="logotext"><i>hotspot</i></span><span class="logodot">.</span>
     </div>
     <div id="search-container" class="ui center aligned container">
-      <div id="search" class="ui action input">
-        <input type="text" placeholder="Search events">
-        <button class="ui button" v-on:click="searchEvents">Search</button>
+      <form id="search" class="ui action input" action="" @submit.prevent>
+        <input id="searchbar" type="text" placeholder="Search events" name="search">
+        <button class="ui button" type="submit" @click="searchEvents">Search</button>
+      </form>
+    </div>-->
+    <div id="menubar" class="ui menu">
+      <a id="logo" class="item">
+        <span class="logotext"><i>hotspot</i>.</span>
+      </a>
+      <div class="item">
+        <form id="search" class="ui action transparent icon input" action="" @submit.prevent @submit="searchEvents">
+          <input id="searchbar" type="text" placeholder="Search events" name="search">
+          <i class="search icon"></i>
+        </form>
       </div>
+    </div>
+    <div class="intro-img">
+      <div class="overlay"></div>
     </div>
     <script
       src="https://code.jquery.com/jquery-3.1.1.min.js"
