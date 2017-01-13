@@ -12,7 +12,6 @@ body {
 }
 
 #logo > .logotext {
-  font-family: 'Oswald', sans-serif;
   font-weight: 700;
   font-size: 24pt;
 }
@@ -39,7 +38,7 @@ body {
   font-size: 13pt;
 }
 
-.intro-img {
+#intro-img {
   position: relative;
   background-image: url('images/landing_img.jpg');
   background-size: cover;
@@ -47,23 +46,79 @@ body {
   height: 400px;
 }
 
-.intro-img > .overlay {
+#intro-img > .overlay {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0,0,0,.6);
 }
 
-.intro-img > .overlay > h1 {
+#intro-img > .overlay > p {
   position: absolute;
   display: block;
-  margin-top: 100px;
-  margin-left: 50%;
   transform: translateX(-50%);
+  margin-top: 150px;
+  margin-left: 50%;
   width: 90%;
   color: #fff;
-  font-weight: 100;
+  font-weight: 900;
   font-size: 24pt;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   text-align: center;
+}
+
+#results {
+  margin-top: 40px;
+}
+
+#no-results {
+  height: 100px;
+  background-color: #000;
+}
+
+#results-list {
+  margin-right: auto;
+  margin-left: auto;
+  width: 60vw;
+  max-width: 1000px;
+  min-width: 700px;
+}
+
+#results a,
+#results a:visited {
+  color: #000;
+}
+
+#results-list .piece {
+  height: 180px;
+  margin-bottom: 20px;
+}
+
+#results-list .title {
+  font-weight: 900;
+  font-size: 18pt;
+  margin-top: -5px;
+  margin-bottom: 5px;
+  word-wrap: normal;
+  overflow: hidden;
+  line-height: 1em;
+  max-height: 2em;
+}
+
+#results-list .host {
+  font-weight: 300;
+  font-size: 12pt;
+  margin-bottom: 5px;
+  overflow: hidden;
+  line-height: 1.1em;
+  max-height: 1.1em;
+}
+
+#results-list .starttime {
+  font-weight: 300;
+  font-size: 12pt;
+  word-wrap: normal;
+  overflow: hidden;
+  line-height: 1em;
+  max-height: 5em;
 }

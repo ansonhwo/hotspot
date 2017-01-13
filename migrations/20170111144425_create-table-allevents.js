@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     table.string('title').notNullable()
     table.string('host').notNullable()
     table.string('desc', 3000)
+    table.integer('attendees')
     table.integer('costlower')
     table.integer('costupper')
     table.dateTime('starttime')

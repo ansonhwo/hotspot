@@ -2,11 +2,11 @@
 <html>
   <head>
     <title>Hotspot</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,700|Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
   </head>
   <body>
     <!--<div id="logo">
@@ -19,27 +19,47 @@
       </form>
     </div>-->
     <div id="menubar" class="ui menu">
-      <a id="logo" class="item">
+      <a id="logo" class="item" @click="viewLanding">
         <span class="logotext"><i>hotspot</i>.</span>
       </a>
       <div class="item">
         <form id="search" class="ui action transparent icon input" action="" @submit.prevent @submit="searchEvents">
           <input id="searchbar" type="text" placeholder="Search events" name="search">
-          <i class="search link icon"></i>
+          <i class="search link icon" @click="searchEvents"></i>
         </form>
       </div>
     </div>
-    <div class="intro-img">
-      <div class="overlay">
-        <h1>Connect with all the latest local events in your area.</h1>
+    <div id="landing" v-show="active">
+      <div id="intro-img">
+        <div class="overlay">
+          <p>Connect with all the latest local events in your area.</p>
+        </div>
       </div>
     </div>
-    <script
-      src="https://code.jquery.com/jquery-3.1.1.min.js"
-      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-      crossorigin="anonymous"></script>
-    <script src="semantic/dist/semantic.min.js"></script>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="main.js"></script>
+    <div id="results" v-show="active">
+      <div id="results-list">
+        <template v-for="event in events">
+          <a href="#">
+            <div class="ui horizontal raised segments piece">
+              <img class="ui medium image"  v-bind:src="event.image">
+              <i class="ui top left attached orange label">${{ event.costupper }}</i>
+              <div class="ui left aligned segment">
+                <p class="title">{{ event.title }}</p>
+                <p class="host"><em>{{ event.host }}</em></p>
+                <p class="starttime">{{ event.starttime }}</p>
+              </div>
+            </div>
+          </a>
+        </template>
+      </div>
+    </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+      <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+      <script src="semantic/dist/semantic.min.js"></script>
+      <script src="https://unpkg.com/vue/dist/vue.js"></script>
+      <script src="main.js"></script>
   </body>
 </html>
