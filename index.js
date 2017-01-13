@@ -1,6 +1,3 @@
-// personal eventbrite oauth2 key: DHQHKAEPE3FV676PIJ42
-// anonymous eventbrite oauth2 key: 3GY6HEPUMRWGWI3445SY
-// https://www.eventbriteapi.com/v3/users/me/?token=MYTOKEN
 const express = require('express')
 const bodyParser = require('body-parser')
 const knex = require('knex')({

@@ -1,18 +1,15 @@
-/** font-family: 'Oswald', sans-serif **/
-
 body {
-  font-family: 'Raleway', sans-serif;
-  font-weight: 300;
+  font-family: 'Work Sans', sans-serif;
   margin: 0;
 }
 
 #logo {
-  color: #ff9046;
+  color: #d20915;
   text-align: center;
 }
 
 #logo > .logotext {
-  font-weight: 700;
+  font-family: 'Fjalla One', sans-serif;
   font-size: 24pt;
 }
 
@@ -28,22 +25,16 @@ body {
   width: 35vw;
 }
 
-#search > .button {
-  width: 100px;
-  color: #fff;
-  background-color: #ff9046;
-}
-
 #searchbar {
   font-size: 13pt;
 }
 
 #intro-img {
   position: relative;
-  background-image: url('images/landing_img.jpg');
-  background-size: cover;
   width: 100%;
   height: 400px;
+  background-image: url('images/landing_img.jpg');
+  background-size: cover;
 }
 
 #intro-img > .overlay {
@@ -71,11 +62,6 @@ body {
   margin-top: 40px;
 }
 
-#no-results {
-  height: 100px;
-  background-color: #000;
-}
-
 #results-list {
   margin-right: auto;
   margin-left: auto;
@@ -89,36 +75,39 @@ body {
   color: #000;
 }
 
+#results-list .label {
+  color: #fff;
+  background-color: #d20915;
+}
+
 #results-list .piece {
   height: 180px;
   margin-bottom: 20px;
 }
 
-#results-list .title {
-  font-weight: 900;
-  font-size: 18pt;
+#results-list .starttime {
   margin-top: -5px;
   margin-bottom: 5px;
   word-wrap: normal;
   overflow: hidden;
   line-height: 1em;
-  max-height: 2em;
+  max-height: 5em;
+  font-size: 12pt;
 }
 
-#results-list .host {
-  font-weight: 300;
-  font-size: 12pt;
+#results-list .title {
   margin-bottom: 5px;
-  overflow: hidden;
-  line-height: 1.1em;
-  max-height: 1.1em;
-}
-
-#results-list .starttime {
-  font-weight: 300;
-  font-size: 12pt;
   word-wrap: normal;
   overflow: hidden;
   line-height: 1em;
-  max-height: 5em;
+  max-height: 2em;
+  font-weight: 900;
+  font-size: 18pt;
+}
+
+#results-list .host {
+  overflow: hidden;
+  line-height: 1.1em;
+  max-height: 1.1em;
+  font-size: 12pt;
 }

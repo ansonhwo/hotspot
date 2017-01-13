@@ -2,28 +2,18 @@
 <html>
   <head>
     <title>Hotspot</title>
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800|Fjalla+One" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
   </head>
   <body>
-    <!--<div id="logo">
-      <span class="logotext"><i>hotspot</i></span><span class="logodot">.</span>
-    </div>
-    <div id="search-container" class="ui center aligned container">
-      <form id="search" class="ui action input" action="" @submit.prevent>
-        <input id="searchbar" type="text" placeholder="Search events" name="search">
-        <button class="ui button" type="submit" @click="searchEvents">Search</button>
-      </form>
-    </div>-->
     <div id="menubar" class="ui menu">
       <a id="logo" class="item" @click="viewLanding">
         <span class="logotext"><i>hotspot</i>.</span>
       </a>
       <div class="item">
-        <form id="search" class="ui action transparent icon input" action="" @submit.prevent @submit="searchEvents">
+        <form id="search" class="ui action icon transparent input" action="" @submit.prevent @submit="searchEvents">
           <input id="searchbar" type="text" placeholder="Search events" name="search">
           <i class="search link icon" @click="searchEvents"></i>
         </form>
@@ -42,11 +32,11 @@
           <a href="#">
             <div class="ui horizontal raised segments piece">
               <img class="ui medium image"  v-bind:src="event.image">
-              <i class="ui top left attached orange label">${{ event.costupper }}</i>
+              <i class="ui top left attached label">${{ event.costupper }}</i>
               <div class="ui left aligned segment">
+                <p class="starttime">{{ event.starttime }}</p>
                 <p class="title">{{ event.title }}</p>
                 <p class="host"><em>{{ event.host }}</em></p>
-                <p class="starttime">{{ event.starttime }}</p>
               </div>
             </div>
           </a>
