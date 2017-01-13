@@ -76,6 +76,19 @@ const resultsView = new Vue({
       this.events.map((event) => {
         event.starttime = moment(event.starttime).format('ddd, MMMM Do YYYY, h:mm A')
       })
+    },
+    loadDetails: function(event) {
+      // Retrieve id of clicked event
+      let target = event.target
+      while(!target.classList.contains('piece')) {
+        target = target.parentElement
+      }
+
+      // Filter out information related to the clicked event
+      const eventID = target.dataset.eventid
+      const eventInfo = this.events.filter((event) => {
+        return event.id == eventID
+      })
     }
   }
 

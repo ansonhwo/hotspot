@@ -30,7 +30,7 @@
       <div id="results-list">
         <template v-for="event in events">
           <a href="#">
-            <div class="ui horizontal raised segments piece">
+            <div class="ui horizontal raised segments piece" v-bind:data-eventid="event.id" @click.prevent @click="loadDetails($event)">
               <img class="ui medium image"  v-bind:src="event.image">
               <i class="ui top left attached label">${{ event.costupper }}</i>
               <div class="ui left aligned segment">
