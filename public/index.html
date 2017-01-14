@@ -32,9 +32,9 @@
           <a href="#">
             <div class="ui horizontal raised segments piece" v-bind:data-eventid="event.id" @click.prevent @click="loadDetails($event)">
               <img class="ui medium image"  v-bind:src="event.image">
-              <i class="ui top left attached label">${{ event.costupper }}</i>
+              <i class="ui top left attached label">{{ event.costlowerFormatted }}</i>
               <div class="ui left aligned segment">
-                <p class="starttime">{{ event.starttime }}</p>
+                <p class="startdate">{{ event.starttimeFormatted }}</p>
                 <p class="title">{{ event.title }}</p>
                 <p class="host"><em>{{ event.host }}</em></p>
               </div>
@@ -42,6 +42,33 @@
           </a>
         </template>
       </div>
+    </div>
+    <div id="event-details" v-show="active">
+      <template v-if="active">
+        <div id="detail-container" class="ui fluid raised container">
+          <div id="detail-card" class="ui fluid card">
+            <div class="image">
+              <img v-bind:src="details.image">
+            </div>
+            <div class="ui top left attached red large label">{{ costString }}</div>
+            <div class="content">
+              <span class="title">{{ details.title }}</span>
+              <span class="datetime right floated">
+                <div class="date">{{ dayString }}</div>
+                <div class="time" v-show="showTime">{{ timeString }}</div>
+              </span>
+              <div class="meta">{{ details.host }}</div>
+              <div class="address">{{ details.address }}</div>
+              <div class="ui horizontal divider">Description</div>
+              <div class="desc">
+                <p>{{ details.desc }}</p>
+              </div>
+
+
+            </div>
+          </div>
+    </div>
+      </template>
     </div>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
       <script

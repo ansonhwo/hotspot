@@ -85,7 +85,7 @@ body {
   margin-bottom: 20px;
 }
 
-#results-list .starttime {
+#results-list .startdate {
   margin-top: -5px;
   margin-bottom: 5px;
   word-wrap: normal;
@@ -110,4 +110,34 @@ body {
   line-height: 1.1em;
   max-height: 1.1em;
   font-size: 12pt;
+}
+
+#detail-container {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  width: 65%;
+  min-width: 700px;
+}
+
+#detail-card .title {
+  font-size: 16pt;
+  width: 50%;
+}
+
+#detail-card .datetime {
+  width: 50%;
+}
+
+#detail-card .date,
+#detail-card .time {
+  text-align: right;
+  white-space: pre;
+}
+
+#detail-card .address {
+  margin-top: 5px;
+}
+
+#detail-card .desc {
+  white-space: pre-line;
 }

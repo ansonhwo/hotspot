@@ -31,9 +31,10 @@ const search = new Vue({
           .then(response => {
             // Show results view and append search query results
             landing.active = false
-            resultsView.active = true
+            detailsView.active = false
             resultsView.events = response
-            resultsView.convertTime()
+            resultsView.convertMetrics()
+            resultsView.active = true
           })
           .catch(err => console.log(err))
       }
@@ -47,9 +48,10 @@ const logo = new Vue({
   el: '#logo',
   methods: {
     viewLanding: function() {
+      document.getElementById('searchbar').textContent = ''
       landing.active = true
       resultsView.active = false
-      document.getElementById('searchbar').textContent = ''
+      detailsView.active = false
     }
   }
 
@@ -72,9 +74,11 @@ const resultsView = new Vue({
     events: []
   },
   methods: {
-    convertTime: function() {
+    convertMetrics: function() {
       this.events.map((event) => {
-        event.starttime = moment(event.starttime).format('ddd, MMMM Do YYYY, h:mm A')
+        event.starttimeFormatted = moment(event.starttime).format('ddd, MMMM Do YYYY, h:mm A')
+        if (event.costlower === 0) event.costlowerFormatted = 'FREE'
+        else event.costlowerFormatted = `$${event.costlower}`
       })
     },
     loadDetails: function(event) {
@@ -89,6 +93,51 @@ const resultsView = new Vue({
       const eventInfo = this.events.filter((event) => {
         return event.id == eventID
       })
+
+      // Render clicked event details
+      detailsView.details = eventInfo[0]
+      detailsView.formatDisplayStrings()
+      resultsView.active = false
+      detailsView.active = true
+      console.log(detailsView.details)
+    }
+  }
+
+})
+
+const detailsView = new Vue({
+
+  el: '#event-details',
+  data: {
+    active: false,
+    details: null,
+    dayString: null,
+    timeString: null,
+    costString: '',
+    showTime: false
+  },
+  methods: {
+    // Convert times and costs to a sensible, readable format
+    formatDisplayStrings: function() {
+      const startDay = moment(this.details.starttime).format('ddd, MMMM Do YYYY')
+      const startTime = moment(this.details.starttime).format('h:mm A')
+      const endDay = moment(this.details.endtime).format('ddd, MMMM Do YYYY')
+      const endTime = moment(this.details.endtime).format('h:mm A')
+
+      if (startDay === endDay) {
+        this.showTime = true
+        this.dayString = startDay
+        if (startTime === endTime) this.timeString = startTime
+        else this.timeString = `${startTime} to ${endTime}`
+      }
+      else {
+        this.showTime = false
+        this.dayString = `${startDay} ${startTime} to\n ${endDay} ${endTime}`
+      }
+
+      if (this.details.costlower === 0) this.costString = 'FREE'
+      else if (this.details.costlower === this.details.costupper) this.costString = `$${this.details.costlower}`
+      else this.costString = `$${this.details.costlower} - $${this.details.costupper}`
     }
   }
 
