@@ -48,7 +48,6 @@ const logo = new Vue({
   el: '#logo',
   methods: {
     viewLanding: function() {
-      document.getElementById('searchbar').textContent = ''
       landing.active = true
       resultsView.active = false
       detailsView.active = false
@@ -74,6 +73,7 @@ const resultsView = new Vue({
     events: []
   },
   methods: {
+    // Convert search result times and costs to a sensible, readable format
     convertMetrics: function() {
       this.events.map((event) => {
         event.starttimeFormatted = moment(event.starttime).format('ddd, MMMM Do YYYY, h:mm A')
