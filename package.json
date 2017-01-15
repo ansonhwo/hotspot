@@ -1,0 +1,35 @@
+{
+  "name": "hotspot",
+  "version": "1.0.0",
+  "description": "A website for locating & hosting events.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "watch": "nodemon .",
+    "migrate:make": "knex migrate:make",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ansonhwo/hotspot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ansonhwo/hotspot/issues"
+  },
+  "homepage": "https://github.com/ansonhwo/hotspot#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "knex": "^0.12.6",
+    "pg": "^6.1.2",
+    "semantic-ui": "^2.2.7",
+    "vue": "^2.1.8"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
