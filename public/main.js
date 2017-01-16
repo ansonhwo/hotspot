@@ -6,10 +6,29 @@ let query = ''
 /******************************/
 // DOM related Vue handlers
 /******************************/
-const search = new Vue({
+const menuBar = new Vue({
 
-  el: '#search',
+  el: '#menubar',
+  data: {
+    loginStatus: 'Login'
+  },
   methods: {
+    viewLanding: function() {
+      landing.active = true
+      resultsView.active = false
+      detailsView.active = false
+    },
+    renderLogin: function() {
+      if (this.loginStatus === 'Logout') {
+        this.loginStatus = 'Login'
+      }
+      else {
+        console.log('logging in')
+        loginView.active = true
+        loginView.loginDone = false
+        loginView.notFound = false
+      }
+    },
     searchEvents: function() {
       // Streamline the search query
       query = document.getElementById('searchbar')
@@ -43,14 +62,51 @@ const search = new Vue({
 
 })
 
-const logo = new Vue({
+const loginView = new Vue({
 
-  el: '#logo',
+  el: '#login-view',
+  data: {
+    active: false,
+    loginDone: false,
+    notFound: false
+  },
   methods: {
-    viewLanding: function() {
-      landing.active = true
-      resultsView.active = false
-      detailsView.active = false
+    close: function() {
+      this.active = false
+      this.loginDone = false
+    },
+    validateLogin: function(event) {
+      const formData = new FormData(event.target)
+      const data = {
+        email: formData.get('email')
+      }
+      this.loginRequest(data)
+        .then(([ result ]) => {
+          if (result) {
+            this.notFound = false
+            this.loginDone = true
+            setTimeout(() => {
+              this.close()
+              menuBar.loginStatus = 'Logout'
+            }, 3000)
+          }
+          else {
+            this.notFound = true
+          }
+        })
+    },
+    signup: function() {
+
+    },
+    loginRequest: function(data) {
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      }
+
+      return fetch('/login', options)
+              .then(response => response.json())
     }
   }
 

@@ -1,6 +1,7 @@
 body {
   font-family: 'Work Sans', sans-serif;
   margin: 0;
+  font-weight: 300;
 }
 
 #logo {
@@ -27,6 +28,45 @@ body {
 
 #searchbar {
   font-size: 13pt;
+}
+
+#login {
+  font-size: 14pt;
+}
+
+#login-view .login-form {
+  position: relative;
+  padding-right: 150px;
+  padding-left: 150px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  width: 60%;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+#login-view p {
+  font-size: 18pt;
+  font-weight: 500;
+  color: #000;
+}
+
+#login-view form {
+  margin-bottom: 20px;
+}
+
+#login-view .login-form .close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#login-view .login-form .data {
+  font-size: 14pt;
+}
+
+#login-view .login-form input {
+  text-align: center;
 }
 
 #intro-img {

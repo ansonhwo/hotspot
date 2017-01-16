@@ -20,10 +20,14 @@ app.get('/search/events', (req, res) => {
     .where('title', 'ilike', `%${query}%`)
     .orWhere('host', 'ilike', `%${query}%`)
     .orWhere('desc', 'ilike', `%${query}%`)
-    .then((result) => {
-      console.log(result)
-      res.json(result)
-    })
+    .then((result) => { res.json(result) })
+    .catch((err) => res.sendStatus(404))
+})
+
+app.post('/login', (req, res) => {
+  knex('users')
+    .where('email', req.body.email)
+    .then((result) => { res.json(result) })
     .catch((err) => res.sendStatus(404))
 })
 
