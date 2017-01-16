@@ -19,6 +19,9 @@
         </form>
       </div>
       <div class="right menu">
+        <div class="ui item" v-if="loggedIn">
+          {{ currentUser }}
+        </div>
         <a id="login" class="ui item" @click="renderLogin">
           {{ loginStatus }}
         </a>
@@ -27,7 +30,7 @@
     <div id="login-view" class="ui active dimmer" v-if="active">
       <div class="content">
         <div class="center">
-          <div class="ui container login-form">
+          <div class="ui container login-form" v-if="loginActive">
             <button class="circular ui icon huge basic close button" @click="close">
               <i class="remove icon"></i>
             </button>
@@ -37,7 +40,7 @@
                 Logging in... <i class="checkmark green icon"></i>
               </div>
             </div>
-            <div v-if="notFound" class="ui negative message">
+            <div v-if="invalidUser" class="ui negative message">
               Sorry, no account exists with that email.
             </div>
             <form class="ui data form" action="" @submit.prevent @submit="validateLogin($event)">
@@ -46,8 +49,33 @@
                 <input type="email" name="email" placeholder="abc@1234.com" required>
               </div>
               <button class="ui button" @submit="validateLogin($event)">Login</button>
-              <div class="ui horizontal divider">OR</div>
-              <button class="ui red button" @click="signup">Signup</button>
+            </form>
+            <div class="ui horizontal divider">OR</div>
+            <button class="ui red button" @click="showSignup">Signup</button>
+          </div>
+          <div class="ui container signup-form" v-if="signupActive">
+            <button class="circular ui icon huge basic close button" @click="close">
+              <i class="remove icon"></i>
+            </button>
+            <p>Signup</p>
+            <div v-if="signupDone" class="ui positive message">
+              <div class="header">
+                All done! Logging you in... <i class="checkmark green icon"></i>
+              </div>
+            </div>
+            <div v-if="userExists" class="ui negative message">
+              Sorry, an account with that email already exists.
+            </div>
+            <form class="ui data form" action="" @submit.prevent @submit="validateSignup($event)">
+              <div class="required field">
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Your name" required>
+              </div>
+              <div class="required field">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="abc@1234.com" required>
+              </div>
+              <button class="ui red button" @submit="validateSignup($event)">Signup</button>
             </form>
           </div>
         </div>

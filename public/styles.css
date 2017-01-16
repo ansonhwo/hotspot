@@ -16,6 +16,7 @@ body {
 
 #menubar {
   margin-bottom: 0;
+  font-size: 13pt;
 }
 
 #search-container {
@@ -26,15 +27,12 @@ body {
   width: 35vw;
 }
 
-#searchbar {
-  font-size: 13pt;
-}
-
 #login {
   font-size: 14pt;
 }
 
-#login-view .login-form {
+#login-view .login-form,
+#login-view .signup-form {
   position: relative;
   padding-right: 150px;
   padding-left: 150px;
@@ -55,17 +53,17 @@ body {
   margin-bottom: 20px;
 }
 
-#login-view .login-form .close {
+#login-view .close {
   position: absolute;
   top: 20px;
   right: 20px;
 }
 
-#login-view .login-form .data {
+#login-view .data {
   font-size: 14pt;
 }
 
-#login-view .login-form input {
+#login-view input {
   text-align: center;
 }
 

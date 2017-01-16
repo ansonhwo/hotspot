@@ -24,11 +24,25 @@ app.get('/search/events', (req, res) => {
     .catch((err) => res.sendStatus(404))
 })
 
-app.post('/login', (req, res) => {
+app.get('/login', (req, res) => {
+  const urlquery = req.client.parser.incoming._parsedUrl.query
+  const query = urlquery.substring(urlquery.indexOf('=') + 1)
+
   knex('users')
-    .where('email', req.body.email)
+    .where('email', 'ilike', `%${query}%`)
     .then((result) => { res.json(result) })
     .catch((err) => res.sendStatus(404))
+})
+
+app.post('/signup', (req, res) => {
+
+  knex('users')
+    .insert({
+      'name': req.body.name,
+      'email': req.body.email
+    }, 'email')
+    .then((result) => { res.status(201).json(result) })
+    .catch((err) => { res.sendStatus(404) })
 })
 
 app.listen(9999, () => { console.log('Listening on 9999') })

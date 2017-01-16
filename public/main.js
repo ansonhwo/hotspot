@@ -10,7 +10,9 @@ const menuBar = new Vue({
 
   el: '#menubar',
   data: {
-    loginStatus: 'Login'
+    loginStatus: 'Login',
+    loggedIn: false,
+    currentUser: ''
   },
   methods: {
     viewLanding: function() {
@@ -21,12 +23,19 @@ const menuBar = new Vue({
     renderLogin: function() {
       if (this.loginStatus === 'Logout') {
         this.loginStatus = 'Login'
+        this.loggedIn = false
+        this.currentUser = ''
       }
       else {
-        console.log('logging in')
-        loginView.active = true
         loginView.loginDone = false
-        loginView.notFound = false
+        loginView.signupDone = false
+        loginView.invalidUser = false
+        loginView.userExists = false
+        loginView.loginActive = true
+        loginView.signupActive = false
+        loginView.active = true
+        this.loggedIn = false
+        this.currentUser = ''
       }
     },
     searchEvents: function() {
@@ -68,7 +77,11 @@ const loginView = new Vue({
   data: {
     active: false,
     loginDone: false,
-    notFound: false
+    signupDone: false,
+    invalidUser: false,
+    userExists: false,
+    loginActive: true,
+    signupActive: false
   },
   methods: {
     close: function() {
@@ -77,35 +90,62 @@ const loginView = new Vue({
     },
     validateLogin: function(event) {
       const formData = new FormData(event.target)
-      const data = {
-        email: formData.get('email')
-      }
-      this.loginRequest(data)
-        .then(([ result ]) => {
-          if (result) {
-            this.notFound = false
+
+      fetch('/login?email=' + formData.get('email'))
+        .then(response => response.json())
+        .then(([ response ]) => {
+          if (response) {
+            this.invalidUser = false
             this.loginDone = true
             setTimeout(() => {
               this.close()
               menuBar.loginStatus = 'Logout'
+              menuBar.loggedIn = true
+              menuBar.currentUser = response.email
             }, 3000)
           }
           else {
-            this.notFound = true
+            this.invalidUser = true
           }
         })
+        .catch(err => console.log(err))
     },
-    signup: function() {
-
+    validateSignup: function(event) {
+      const formData = new FormData(event.target)
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email')
+      }
+      
+      this.signupRequest(data)
+        .then(([ response ]) => {
+          if (response) {
+            this.userExists = false
+            this.signupDone = true
+            setTimeout(() => {
+              this.close()
+              menuBar.loginStatus = 'Logout'
+              menuBar.loggedIn = true
+              menuBar.currentUser = response
+            }, 3000)
+          }
+        })
+        .catch(err => {
+          this.userExists = true
+        })
     },
-    loginRequest: function(data) {
+    showSignup: function() {
+      this.signupActive = true
+      this.loginActive = false
+    },
+    signupRequest: function(data) {
       const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       }
 
-      return fetch('/login', options)
+      return fetch('/signup', options)
               .then(response => response.json())
     }
   }
