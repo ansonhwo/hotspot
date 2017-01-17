@@ -116,7 +116,7 @@ const loginView = new Vue({
         name: formData.get('name'),
         email: formData.get('email')
       }
-      
+
       this.signupRequest(data)
         .then(([ response ]) => {
           if (response) {
@@ -195,7 +195,6 @@ const resultsView = new Vue({
       detailsView.formatDisplayStrings()
       resultsView.active = false
       detailsView.active = true
-      console.log(detailsView.details)
     }
   }
 
