@@ -19,64 +19,15 @@
         </form>
       </div>
       <div class="right menu">
-        <div class="ui item" v-if="loggedIn">
-          {{ currentUser }}
-        </div>
-        <a id="login" class="ui item" @click="renderLogin">
-          {{ loginStatus }}
-        </a>
-      </div>
-    </div>
-    <div id="login-view" class="ui active dimmer" v-if="active">
-      <div class="content">
-        <div class="center">
-          <div class="ui container login-form" v-if="loginActive">
-            <button class="circular ui icon huge basic close button" @click="close">
-              <i class="remove icon"></i>
-            </button>
-            <p>Login</p>
-            <div v-if="loginDone" class="ui positive message">
-              <div class="header">
-                Logging in... <i class="checkmark green icon"></i>
-              </div>
+        <div class="ui item">
+          <div id="current-user" class="ui simple dropdown">
+            <div class="text" v-bind:class="{ host: host }">Login</div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <template v-for="user in users">
+                <div class="item" v-bind:data-value="user.id" v-bind:data-host="user.host" @click="setUser($event)">{{ user.email }}</div>
+              </template>
             </div>
-            <div v-if="invalidUser" class="ui negative message">
-              Sorry, no account exists with that email.
-            </div>
-            <form class="ui data form" action="" @submit.prevent @submit="validateLogin($event)">
-              <div class="required field">
-                <label>Email</label>
-                <input type="email" name="email" placeholder="abc@1234.com" required>
-              </div>
-              <button class="ui button" @submit="validateLogin($event)">Login</button>
-            </form>
-            <div class="ui horizontal divider">OR</div>
-            <button class="ui red button" @click="showSignup">Signup</button>
-          </div>
-          <div class="ui container signup-form" v-if="signupActive">
-            <button class="circular ui icon huge basic close button" @click="close">
-              <i class="remove icon"></i>
-            </button>
-            <p>Signup</p>
-            <div v-if="signupDone" class="ui positive message">
-              <div class="header">
-                All done! Logging you in... <i class="checkmark green icon"></i>
-              </div>
-            </div>
-            <div v-if="userExists" class="ui negative message">
-              Sorry, an account with that email already exists.
-            </div>
-            <form class="ui data form" action="" @submit.prevent @submit="validateSignup($event)">
-              <div class="required field">
-                <label>Name</label>
-                <input type="text" name="name" placeholder="Your name" required>
-              </div>
-              <div class="required field">
-                <label>Email</label>
-                <input type="email" name="email" placeholder="abc@1234.com" required>
-              </div>
-              <button class="ui red button" @submit="validateSignup($event)">Signup</button>
-            </form>
           </div>
         </div>
       </div>
@@ -130,13 +81,13 @@
     </div>
       </template>
     </div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-      <script
-        src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
-      <script src="https://unpkg.com/vue/dist/vue.js"></script>
-      <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>

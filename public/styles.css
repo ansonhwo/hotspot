@@ -27,44 +27,8 @@ body {
   width: 35vw;
 }
 
-#login {
-  font-size: 14pt;
-}
-
-#login-view .login-form,
-#login-view .signup-form {
-  position: relative;
-  padding-right: 150px;
-  padding-left: 150px;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  width: 60%;
-  background-color: #fff;
-  border-radius: 10px;
-}
-
-#login-view p {
-  font-size: 18pt;
-  font-weight: 500;
-  color: #000;
-}
-
-#login-view form {
-  margin-bottom: 20px;
-}
-
-#login-view .close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-
-#login-view .data {
-  font-size: 14pt;
-}
-
-#login-view input {
-  text-align: center;
+#current-user .host {
+  color: #d20915;
 }
 
 #intro-img {

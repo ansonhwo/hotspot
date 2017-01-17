@@ -10,9 +10,8 @@ const menuBar = new Vue({
 
   el: '#menubar',
   data: {
-    loginStatus: 'Login',
-    loggedIn: false,
-    currentUser: ''
+    users: [],
+    host: false
   },
   methods: {
     viewLanding: function() {
@@ -20,23 +19,15 @@ const menuBar = new Vue({
       resultsView.active = false
       detailsView.active = false
     },
-    renderLogin: function() {
-      if (this.loginStatus === 'Logout') {
-        this.loginStatus = 'Login'
-        this.loggedIn = false
-        this.currentUser = ''
-      }
-      else {
-        loginView.loginDone = false
-        loginView.signupDone = false
-        loginView.invalidUser = false
-        loginView.userExists = false
-        loginView.loginActive = true
-        loginView.signupActive = false
-        loginView.active = true
-        this.loggedIn = false
-        this.currentUser = ''
-      }
+    getUsers: function() {
+      fetch('/users')
+        .then(response => response.json())
+        .then(response => { this.users = response })
+        .catch(err => console.log(err))
+    },
+    setUser: function(event) {
+      this.host = event.target.dataset.host
+      document.querySelector('#current-user .text').textContent = event.target.innerText
     },
     searchEvents: function() {
       // Streamline the search query
@@ -71,86 +62,7 @@ const menuBar = new Vue({
 
 })
 
-const loginView = new Vue({
 
-  el: '#login-view',
-  data: {
-    active: false,
-    loginDone: false,
-    signupDone: false,
-    invalidUser: false,
-    userExists: false,
-    loginActive: true,
-    signupActive: false
-  },
-  methods: {
-    close: function() {
-      this.active = false
-      this.loginDone = false
-    },
-    validateLogin: function(event) {
-      const formData = new FormData(event.target)
-
-      fetch('/login?email=' + formData.get('email'))
-        .then(response => response.json())
-        .then(([ response ]) => {
-          if (response) {
-            this.invalidUser = false
-            this.loginDone = true
-            setTimeout(() => {
-              this.close()
-              menuBar.loginStatus = 'Logout'
-              menuBar.loggedIn = true
-              menuBar.currentUser = response.email
-            }, 3000)
-          }
-          else {
-            this.invalidUser = true
-          }
-        })
-        .catch(err => console.log(err))
-    },
-    validateSignup: function(event) {
-      const formData = new FormData(event.target)
-      const data = {
-        name: formData.get('name'),
-        email: formData.get('email')
-      }
-
-      this.signupRequest(data)
-        .then(([ response ]) => {
-          if (response) {
-            this.userExists = false
-            this.signupDone = true
-            setTimeout(() => {
-              this.close()
-              menuBar.loginStatus = 'Logout'
-              menuBar.loggedIn = true
-              menuBar.currentUser = response
-            }, 3000)
-          }
-        })
-        .catch(err => {
-          this.userExists = true
-        })
-    },
-    showSignup: function() {
-      this.signupActive = true
-      this.loginActive = false
-    },
-    signupRequest: function(data) {
-      const options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      }
-
-      return fetch('/signup', options)
-              .then(response => response.json())
-    }
-  }
-
-})
 
 const landing = new Vue({
 
@@ -237,3 +149,5 @@ const detailsView = new Vue({
   }
 
 })
+
+menuBar.getUsers()

@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments('id').primary()
     table.string('name').notNullable()
     table.string('email').unique().notNullable()
+    table.boolean('host')
   })
 
   return query
