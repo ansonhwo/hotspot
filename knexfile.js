@@ -4,6 +4,9 @@ exports.development = {
     user: 'super',
     database: 'eventinfo'
   },
+  seeds: {
+    directory: './seeds/dev'
+  },
   migrations: {
     directory: './migrations',
     tableName: 'knex_migrations'

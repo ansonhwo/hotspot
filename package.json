@@ -8,7 +8,9 @@
     "watch": "nodemon .",
     "migrate:make": "knex migrate:make",
     "migrate": "knex migrate:latest",
-    "rollback": "knex migrate:rollback"
+    "rollback": "knex migrate:rollback",
+    "seed:make": "knex seed:make",
+    "seed:run": "knex seed:run"
   },
   "repository": {
     "type": "git",
