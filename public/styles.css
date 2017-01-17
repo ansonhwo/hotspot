@@ -1,6 +1,7 @@
 body {
   font-family: 'Work Sans', sans-serif;
   margin: 0;
+  font-weight: 300;
 }
 
 #logo {
@@ -15,6 +16,7 @@ body {
 
 #menubar {
   margin-bottom: 0;
+  font-size: 13pt;
 }
 
 #search-container {
@@ -25,8 +27,44 @@ body {
   width: 35vw;
 }
 
-#searchbar {
-  font-size: 13pt;
+#login {
+  font-size: 14pt;
+}
+
+#login-view .login-form,
+#login-view .signup-form {
+  position: relative;
+  padding-right: 150px;
+  padding-left: 150px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  width: 60%;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+#login-view p {
+  font-size: 18pt;
+  font-weight: 500;
+  color: #000;
+}
+
+#login-view form {
+  margin-bottom: 20px;
+}
+
+#login-view .close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#login-view .data {
+  font-size: 14pt;
+}
+
+#login-view input {
+  text-align: center;
 }
 
 #intro-img {
@@ -85,7 +123,7 @@ body {
   margin-bottom: 20px;
 }
 
-#results-list .starttime {
+#results-list .startdate {
   margin-top: -5px;
   margin-bottom: 5px;
   word-wrap: normal;
@@ -110,4 +148,34 @@ body {
   line-height: 1.1em;
   max-height: 1.1em;
   font-size: 12pt;
+}
+
+#detail-container {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  width: 65%;
+  min-width: 700px;
+}
+
+#detail-card .title {
+  font-size: 16pt;
+  width: 50%;
+}
+
+#detail-card .datetime {
+  width: 30%;
+}
+
+#detail-card .date,
+#detail-card .time {
+  text-align: right;
+  white-space: pre;
+}
+
+#detail-card .address {
+  margin-top: 5px;
+}
+
+#detail-card .desc {
+  white-space: pre-line;
 }
