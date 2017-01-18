@@ -34,7 +34,7 @@ body {
 #intro-img {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 350px;
   background-image: url('images/landing_img.jpg');
   background-size: cover;
 }
@@ -60,6 +60,25 @@ body {
   text-align: center;
 }
 
+#landing h2 {
+  margin-bottom: 30px;
+  color: #d20915;
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 25pt;
+  text-align: center;
+}
+
+#landing .featured {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 11pt;
+  text-align: center;
+}
+
+#landing .event-info {
+  padding: 10px;
+}
+
 #results {
   margin-top: 40px;
 }
@@ -72,6 +91,8 @@ body {
   min-width: 700px;
 }
 
+#landing a,
+#landing a:visited,
 #results a,
 #results a:visited {
   color: #000;
@@ -82,7 +103,7 @@ body {
   background-color: #d20915;
 }
 
-#results-list .piece {
+#results-list .event {
   height: 180px;
   margin-bottom: 20px;
 }

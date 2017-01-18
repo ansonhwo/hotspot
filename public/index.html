@@ -38,16 +38,34 @@
           <p>Connect with all the latest local events in your area.</p>
         </div>
       </div>
+      <h2>Featured Events</h2>
+      <div class="ui three stackable cards featured">
+        <template v-for="event in events">
+          <a class="ui raised card event" v-bind:data-eventid="event.id" @click="loadDetails($event)">
+            <div class="image">
+              <img v-bind:src="event.image">
+            </div>
+            <i class="ui top left attached red label">{{ event.costString }}</i>
+            <div class="event-info">
+              <div class="header">
+                <p>{{ event.startDayFormatted }}</p>
+                <p>{{ event.title }}</p>
+              </div>
+              <div class="meta">{{ event.address }}</div>
+            </div>
+          </a>
+        </template>
+      </div>
     </div>
     <div id="results" v-show="active">
       <div id="results-list">
         <template v-for="event in events">
           <a href="#">
-            <div class="ui horizontal raised segments piece" v-bind:data-eventid="event.id" @click.prevent @click="loadDetails($event)">
+            <div class="ui horizontal raised segments event" v-bind:data-eventid="event.id" @click.prevent @click="loadDetails($event)">
               <img class="ui medium image"  v-bind:src="event.image">
-              <i class="ui top left attached label">{{ event.costlowerFormatted }}</i>
+              <i class="ui top left attached label">{{ event.costString }}</i>
               <div class="ui left aligned segment">
-                <p class="startdate">{{ event.starttimeFormatted }}</p>
+                <p class="startdate">{{ event.startDayFormatted }}</p>
                 <p class="title">{{ event.title }}</p>
                 <p class="host"><em>{{ event.host }}</em></p>
               </div>
@@ -63,12 +81,12 @@
             <div class="image">
               <img v-bind:src="details.image">
             </div>
-            <div class="ui top left attached red large label">{{ costString }}</div>
+            <div class="ui top left attached red large label">{{ details.costString }}</div>
             <div class="content">
               <span class="title">{{ details.title }}</span>
               <span class="datetime right floated">
-                <div class="date">{{ dayString }}</div>
-                <div class="time" v-show="showTime">{{ timeString }}</div>
+                <div class="date">{{ details.dayString }}</div>
+                <div class="time" v-show="showTime">{{ details.timeString }}</div>
               </span>
               <div class="meta">{{ details.host }}</div>
               <div class="address">{{ details.address }}</div>
