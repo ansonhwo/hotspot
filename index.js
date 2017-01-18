@@ -30,4 +30,12 @@ app.get('/users', (req, res) => {
     .catch((err) => res.sendStatus(404))
 })
 
+app.get('/featured', (req, res) => {
+  knex('allevents')
+    .orderByRaw('RANDOM()')
+    .limit(6)
+    .then((result) => { res.json(result) })
+    .catch((err) => res.sendStatus(404))
+})
+
 app.listen(9999, () => { console.log('Listening on 9999') })

@@ -51,8 +51,8 @@ const menuBar = new Vue({
             // Show results view and append search query results
             landing.active = false
             detailsView.active = false
+            formatDisplayStrings(response)
             resultsView.events = response
-            resultsView.convertMetrics()
             resultsView.active = true
           })
           .catch(err => console.log(err))
@@ -62,13 +62,27 @@ const menuBar = new Vue({
 
 })
 
-
-
 const landing = new Vue({
 
   el: '#landing',
   data: {
-    active: true
+    active: true,
+    events: []
+  },
+  methods: {
+    getFeatured: function() {
+      fetch('/featured')
+        .then(response => response.json())
+        .then(response => {
+          formatDisplayStrings(response)
+          this.events = response
+        })
+        .catch(err => console.log(err))
+    },
+    loadDetails: function(event) {
+      this.active = false
+      detailsView.loadDetails(this.events, event)
+    }
   }
 
 })
@@ -81,32 +95,9 @@ const resultsView = new Vue({
     events: []
   },
   methods: {
-    // Convert search result times and costs to a sensible, readable format
-    convertMetrics: function() {
-      this.events.map((event) => {
-        event.starttimeFormatted = moment(event.starttime).format('ddd, MMMM Do YYYY, h:mm A')
-        if (event.costlower === 0) event.costlowerFormatted = 'FREE'
-        else event.costlowerFormatted = `$${event.costlower}`
-      })
-    },
     loadDetails: function(event) {
-      // Retrieve id of clicked event
-      let target = event.target
-      while(!target.classList.contains('piece')) {
-        target = target.parentElement
-      }
-
-      // Filter out information related to the clicked event
-      const eventID = target.dataset.eventid
-      const eventInfo = this.events.filter((event) => {
-        return event.id == eventID
-      })
-
-      // Render clicked event details
-      detailsView.details = eventInfo[0]
-      detailsView.formatDisplayStrings()
-      resultsView.active = false
-      detailsView.active = true
+      this.active = false
+      detailsView.loadDetails(this.events, event)
     }
   }
 
@@ -118,36 +109,69 @@ const detailsView = new Vue({
   data: {
     active: false,
     details: null,
-    dayString: null,
-    timeString: null,
-    costString: '',
     showTime: false
   },
   methods: {
-    // Convert times and costs to a sensible, readable format
-    formatDisplayStrings: function() {
-      const startDay = moment(this.details.starttime).format('ddd, MMMM Do YYYY')
-      const startTime = moment(this.details.starttime).format('h:mm A')
-      const endDay = moment(this.details.endtime).format('ddd, MMMM Do YYYY')
-      const endTime = moment(this.details.endtime).format('h:mm A')
+    checkTime: function() {
+      if (this.details.startDayFormatted === this.details.endDayFormatted) this.showTime = true
+      else this.showTime = false
+    },
+    loadDetails: function(eventList, event) {
+      // Get element that contains the data propety eventid
+      const theEvent = getElementData(event.target, 'event')
 
-      if (startDay === endDay) {
-        this.showTime = true
-        this.dayString = startDay
-        if (startTime === endTime) this.timeString = startTime
-        else this.timeString = `${startTime} to ${endTime}`
-      }
-      else {
-        this.showTime = false
-        this.dayString = `${startDay} ${startTime} to\n ${endDay} ${endTime}`
-      }
+      // Filter out information related to the clicked event
+      const eventInfo = eventList.filter((eventItem) => {
+        return eventItem.id == theEvent.dataset.eventid
+      })
 
-      if (this.details.costlower === 0) this.costString = 'FREE'
-      else if (this.details.costlower === this.details.costupper) this.costString = `$${this.details.costlower}`
-      else this.costString = `$${this.details.costlower} - $${this.details.costupper}`
+      // Render clicked event details
+      this.details = eventInfo[0]
+      this.checkTime()
+      this.active = true
     }
   }
 
 })
 
+/******************************/
+// Helper Functions
+/******************************/
+function getElementData(element, data) {
+  while (!element.classList.contains(data)) {
+    element = element.parentElement
+  }
+
+  return element
+}
+
+function formatDisplayStrings(eventList) {
+  eventList.map((event) => {
+    event.startDayFormatted = moment(event.starttime).format('ddd, MMMM Do YYYY')
+    event.startTimeFormatted = moment(event.starttime).format('h:mm A')
+    event.endDayFormatted = moment(event.endtime).format('ddd, MMMM Do YYYY')
+    event.endTimeFormatted = moment(event.endtime).format('h:mm A')
+    event.dayString = ''
+    event.timeString = ''
+    event.costString = ''
+
+    if (event.startDayFormatted === event.endDayFormatted) {
+      event.dayString = event.startDayFormatted
+      if (event.starttime === event.endtime) event.timeString = event.startTime
+      else event.timeString = `${event.startTimeFormatted} to ${event.endTimeFormatted}`
+    }
+    else {
+      event.dayString = `${event.startDayFormatted} ${event.startTimeFormatted} to\n ${event.endDayFormatted} ${event.endTimeFormatted}`
+    }
+
+    if (event.costlower === 0) event.costString = 'FREE'
+    else if (event.costlower === event.costupper) event.costString = `$${event.costlower}`
+    else event.costString = `$${event.costlower} - $${event.costupper}`
+  })
+}
+
+/******************************/
+// Initializations
+/******************************/
 menuBar.getUsers()
+landing.getFeatured()
