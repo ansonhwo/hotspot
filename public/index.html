@@ -18,6 +18,19 @@
           <i class="search link icon" @click="searchEvents"></i>
         </form>
       </div>
+      <div class="right menu">
+        <div class="ui item">
+          <div id="current-user" class="ui simple dropdown">
+            <div class="text" v-bind:class="{ host: host }">Login</div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <template v-for="user in users">
+                <div class="item" v-bind:data-value="user.id" v-bind:data-host="user.host" @click="setUser($event)">{{ user.email }}</div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div id="landing" v-show="active">
       <div id="intro-img">
@@ -68,13 +81,13 @@
     </div>
       </template>
     </div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-      <script
-        src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>
-      <script src="semantic/dist/semantic.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
-      <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>

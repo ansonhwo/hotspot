@@ -6,10 +6,29 @@ let query = ''
 /******************************/
 // DOM related Vue handlers
 /******************************/
-const search = new Vue({
+const menuBar = new Vue({
 
-  el: '#search',
+  el: '#menubar',
+  data: {
+    users: [],
+    host: false
+  },
   methods: {
+    viewLanding: function() {
+      landing.active = true
+      resultsView.active = false
+      detailsView.active = false
+    },
+    getUsers: function() {
+      fetch('/users')
+        .then(response => response.json())
+        .then(response => { this.users = response })
+        .catch(err => console.log(err))
+    },
+    setUser: function(event) {
+      this.host = event.target.dataset.host
+      document.querySelector('#current-user .text').textContent = event.target.innerText
+    },
     searchEvents: function() {
       // Streamline the search query
       query = document.getElementById('searchbar')
@@ -43,18 +62,7 @@ const search = new Vue({
 
 })
 
-const logo = new Vue({
 
-  el: '#logo',
-  methods: {
-    viewLanding: function() {
-      landing.active = true
-      resultsView.active = false
-      detailsView.active = false
-    }
-  }
-
-})
 
 const landing = new Vue({
 
@@ -99,7 +107,6 @@ const resultsView = new Vue({
       detailsView.formatDisplayStrings()
       resultsView.active = false
       detailsView.active = true
-      console.log(detailsView.details)
     }
   }
 
@@ -142,3 +149,5 @@ const detailsView = new Vue({
   }
 
 })
+
+menuBar.getUsers()

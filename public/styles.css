@@ -1,6 +1,7 @@
 body {
   font-family: 'Work Sans', sans-serif;
   margin: 0;
+  font-weight: 300;
 }
 
 #logo {
@@ -15,6 +16,7 @@ body {
 
 #menubar {
   margin-bottom: 0;
+  font-size: 13pt;
 }
 
 #search-container {
@@ -25,8 +27,8 @@ body {
   width: 35vw;
 }
 
-#searchbar {
-  font-size: 13pt;
+#current-user .host {
+  color: #d20915;
 }
 
 #intro-img {
