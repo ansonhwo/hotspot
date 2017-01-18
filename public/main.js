@@ -81,6 +81,7 @@ const landing = new Vue({
         .then(response => {
           formatDisplayStrings(response)
           this.events = response
+          distanceMatrix(this.events)
         })
         .catch(err => console.log(err))
     },
@@ -190,9 +191,32 @@ landing.getFeatured()
 /******************************/
 // Google Distance Matrix API Testing
 /******************************/
-const service = new google.maps.DistanceMatrixService
-const origin = '2301 San Joaquin Hills Road, Corona del Mar, CA 92625'
-const dest = '11223 Chandler Blvd, North Hollywood, CA 91354'
-service.getDistanceMatrix({
-  
-})
+// Distance Matrix example response
+function distanceMatrix(eventList) {
+  const service = new google.maps.DistanceMatrixService
+  console.log('Distance Matrix testing begin')
+  console.log(eventList)
+  service.getDistanceMatrix({
+    origins: ['Newport Beach, CA'],
+    destinations: eventList.map((event) => { return event.address }),
+    travelMode: 'DRIVING',
+    unitSystem: google.maps.UnitSystem.IMPERIAL
+  }, (response, status) => {
+    if (status !== 'OK') {
+      console.error('Error: ' + status)
+    }
+    else {
+      console.log(response.rows)
+    }
+  })
+}
+
+// Google Places library example
+function AutocompleteDirectionsHandler() {
+  this.originPlaceId = null
+  this.destinationPlaceId = null
+  const originInput = document.getElementById('location')
+  const originAutocomplete = new google.maps.places.Autocomplete(originInput, { placeIdOnly: true })
+}
+
+new AutocompleteDirectionsHandler()
