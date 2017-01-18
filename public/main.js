@@ -186,3 +186,17 @@ function formatDisplayStrings(eventList) {
 /******************************/
 menuBar.getUsers()
 landing.getFeatured()
+
+/******************************/
+// Google Distance Matrix API Testing
+/******************************/
+const options = {
+  url: 'http://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=2301+San+Joaquin+Hills+Road,Corona+del+Mar,CA+92625&destinations=New+York+City,NY&key=AIzaSyB-dhCWcmnHug8vbrnB5Fl-uZK4BvHL5vU',
+  headers: {
+    'Access-Control-Allow-Origin': '*'
+  }
+}
+
+fetch('http://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=2301+San+Joaquin+Hills+Road,Corona+del+Mar,CA+92625&destinations=New+York+City,NY&key=AIzaSyB-dhCWcmnHug8vbrnB5Fl-uZK4BvHL5vU')
+  .then(response => console.log(response))
+  .catch(err => console.error(err))

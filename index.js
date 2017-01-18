@@ -12,6 +12,15 @@ const app = express()
 app.use(express.static('public'))
 app.use(bodyParser.json())
 
+app.use((req, res, next) => {
+  if ('OPTIONS' === req.method) {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Methods', 'GET')
+    res.send(200)
+  }
+  else next()
+})
+
 app.get('/search/events', (req, res) => {
   const urlquery = req.client.parser.incoming._parsedUrl.query
   const query = urlquery.substring(urlquery.indexOf('=') + 1).replace(/[+]/g, ' ')
