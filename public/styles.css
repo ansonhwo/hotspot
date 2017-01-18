@@ -75,6 +75,10 @@ body {
   text-align: center;
 }
 
+#landing .event-info {
+  padding: 10px;
+}
+
 #results {
   margin-top: 40px;
 }

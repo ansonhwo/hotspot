@@ -14,21 +14,25 @@ const menuBar = new Vue({
     host: false
   },
   methods: {
+    // When user clicks on the logo, the user is brought to the landing page
     viewLanding: function() {
       landing.active = true
       resultsView.active = false
       detailsView.active = false
     },
+    // Gets all available users from the database
     getUsers: function() {
       fetch('/users')
         .then(response => response.json())
         .then(response => { this.users = response })
         .catch(err => console.log(err))
     },
+    // Sets the current user in the menu bar
     setUser: function(event) {
       this.host = event.target.dataset.host
       document.querySelector('#current-user .text').textContent = event.target.innerText
     },
+    // User enters an event search query
     searchEvents: function() {
       // Streamline the search query
       query = document.getElementById('searchbar')
@@ -70,6 +74,7 @@ const landing = new Vue({
     events: []
   },
   methods: {
+    // Get randomized list of featured events
     getFeatured: function() {
       fetch('/featured')
         .then(response => response.json())
@@ -79,6 +84,7 @@ const landing = new Vue({
         })
         .catch(err => console.log(err))
     },
+    // Load details for the featured event that a user has clicked on
     loadDetails: function(event) {
       this.active = false
       detailsView.loadDetails(this.events, event)
@@ -95,6 +101,7 @@ const resultsView = new Vue({
     events: []
   },
   methods: {
+    // Load details for the search result event that a user has clicked on
     loadDetails: function(event) {
       this.active = false
       detailsView.loadDetails(this.events, event)
@@ -112,10 +119,12 @@ const detailsView = new Vue({
     showTime: false
   },
   methods: {
+    // Display function that renders the time based on the listed days of the event
     checkTime: function() {
       if (this.details.startDayFormatted === this.details.endDayFormatted) this.showTime = true
       else this.showTime = false
     },
+    // Render event details for the event that a user has clicked on
     loadDetails: function(eventList, event) {
       // Get element that contains the data propety eventid
       const theEvent = getElementData(event.target, 'event')
@@ -137,6 +146,7 @@ const detailsView = new Vue({
 /******************************/
 // Helper Functions
 /******************************/
+// Traverses the DOM and returns the first element found with the provided class name
 function getElementData(element, data) {
   while (!element.classList.contains(data)) {
     element = element.parentElement
@@ -145,6 +155,7 @@ function getElementData(element, data) {
   return element
 }
 
+// Formats day & time display strings based on event details
 function formatDisplayStrings(eventList) {
   eventList.map((event) => {
     event.startDayFormatted = moment(event.starttime).format('ddd, MMMM Do YYYY')
