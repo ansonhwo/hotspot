@@ -32,8 +32,19 @@ const menuBar = new Vue({
       this.host = event.target.dataset.host
       document.querySelector('#current-user .text').textContent = event.target.innerText
     },
+    activeRadius: function(event) {
+      let radius = document.getElementById('radius')
+      if (event.target.value) {
+        radius.classList.remove('disabled')
+      }
+      else {
+        radius.classList.add('disabled')
+      }
+    },
     // User enters an event search query
     searchEvents: function() {
+      const radius = document.getElementById('radius').value
+      const location = document.getElementById('location').value
       // Streamline the search query
       query = document.getElementById('searchbar')
         .value
@@ -55,6 +66,7 @@ const menuBar = new Vue({
             // Show results view and append search query results
             landing.active = false
             detailsView.active = false
+            if (location) distanceMatrix(response, radius)
             formatDisplayStrings(response)
             resultsView.events = response
             resultsView.active = true
@@ -180,6 +192,46 @@ function formatDisplayStrings(eventList) {
     else event.costString = `$${event.costlower} - $${event.costupper}`
   })
 }
+
+// Filters out event results based on proximity
+function distanceMatrix(eventList, radius) {
+  console.log('running distance matrix')
+  const service = new google.maps.DistanceMatrixService
+  const location = document.getElementById('location').value
+
+  service.getDistanceMatrix({
+    origins: [location],
+    destinations: eventList.map((event) => { return event.address }),
+    travelMode: 'DRIVING',
+    unitSystem: google.maps.UnitSystem.IMPERIAL
+  }, (response, status) => {
+    if (status !== 'OK') console.error(`Error: ${status}`)
+    else {
+      // Check each event distance and filter based on proximity
+      if (radius) {
+        radius = parseFloat(radius.split(' ')[0])
+      }
+      else {
+        radius = 25.0
+      }
+      console.log('specified radius: ' + radius)
+      eventList.filter((_, index) => {
+        let distance = parseFloat(response.rows[0].elements[index].distance.text.split(' ')[0])
+        console.log('distance away: ' + distance)
+        console.log('event is within the radius: ' + (distance < radius))
+        return distance < radius
+      })
+    }
+  })
+}
+
+// Adds Google Places autocomplete library to user location search
+function AutocompleteDirectionsHandler() {
+  const originInput = document.getElementById('location')
+  const originAutocomplete = new google.maps.places.Autocomplete(originInput, { placeIdOnly: true })
+}
+
+new AutocompleteDirectionsHandler()
 
 /******************************/
 // Initializations

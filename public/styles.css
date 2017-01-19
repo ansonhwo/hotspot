@@ -16,15 +16,28 @@ body {
 
 #menubar {
   margin-bottom: 0;
-  font-size: 13pt;
+  font-size: 15pt;
 }
 
-#search-container {
-  margin-top: 60px;
+#menubar .search {
+  padding: 5px;
 }
 
 #search {
-  width: 35vw;
+  width: 55vw;
+  margin: 0;
+}
+
+#search .fields {
+  margin: 0;
+}
+
+#radius {
+  height: 42px;
+}
+
+#current-user {
+  font-size: 12pt;
 }
 
 #current-user .host {
