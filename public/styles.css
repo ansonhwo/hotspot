@@ -148,6 +148,10 @@ body {
   font-size: 12pt;
 }
 
+#results-list .address {
+  margin-top: 10px;
+}
+
 #detail-container {
   margin-top: 50px;
   margin-bottom: 20px;

@@ -215,8 +215,6 @@ function distanceMatrix(location, eventList, radius) {
     else {
       const service = new google.maps.DistanceMatrixService
 
-      console.log(eventList.map((event) => { return event.address }))
-
       // Call to the Google Distance Matrix API
       service.getDistanceMatrix({
         origins: [location],
