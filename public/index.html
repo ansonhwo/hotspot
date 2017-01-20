@@ -98,17 +98,20 @@
         <div id="detail-container" class="ui fluid raised container">
           <div id="detail-card" class="ui fluid card">
             <div class="image">
+              <p class="ui right ribbon label regstatus" v-show="registered">You're registered <i class="check circle icon"></i></p>
               <img v-bind:src="details.image">
             </div>
             <div class="ui top left attached red large label">{{ details.costString }}</div>
             <div class="content">
-              <span class="title">{{ details.title }}</span>
               <span class="datetime right floated">
                 <div class="date">{{ details.dayString }}</div>
                 <div class="time" v-show="showTime">{{ details.timeString }}</div>
               </span>
-              <div class="meta">{{ details.host }}</div>
-              <div class="address">{{ details.address }}</div>
+              <span class="main">
+                <div class="title">{{ details.title }}</div>
+                <div class="meta">{{ details.host }}</div>
+                <div class="address">{{ details.address }}</div>
+              </span>
               <div class="ui horizontal divider">Description</div>
               <div class="desc">
                 <p>{{ details.desc }}</p>

@@ -60,19 +60,17 @@ app.put('/users/reg', (req, res) => {
     .select('registered')
     .where('email', email)
     .then((result) => {
-      console.log('SELECT registered FROM users WHERE email')
+      // Checking list of events that the current user has registered for
       const regList = result[0].registered
 
       // If the user isn't currently registered, add event id
       if (regList.length === 0 || !regList.includes(id)) {
-        console.log('user isn\'t registered, add event id')
         regList.push(id)
         regStatus = true
       }
       // If the user is registered, remove that event id from the user
       else {
         const index = regList.indexOf(id)
-        console.log('user is registered, remove event id')
         if (index > -1) {
           regList.splice(index, 1)
           regStatus = false
@@ -88,7 +86,6 @@ app.put('/users/reg', (req, res) => {
       return query
     })
     .then( _ => {
-      console.log('sending response')
       res.status(200).json({ registered: regStatus })
     })
     .catch((err) => res.sendStatus(404))

@@ -182,8 +182,10 @@ const detailsView = new Vue({
     },
     // Update the registration status of the current user
     updateRegistration: function(event) {
+      // Get current user
       const user = document.querySelector('#current-user .text').textContent
-      console.log(`id=${this.details.id}&email=${user}`)
+
+      // Ensure that a user is currently logged in
       if (user !== 'Login') {
         const options = {
           method: 'PUT',
@@ -193,9 +195,11 @@ const detailsView = new Vue({
           body: `id=${this.details.id}&email=${user}`
         }
 
+        // Get current registration status for the event in question
         fetch('/users/reg', options)
           .then(response => response.json())
           .then(response => {
+            // Update register button display based on registration status
             if (response.registered) {
               this.registered = true
               this.unregistered = false

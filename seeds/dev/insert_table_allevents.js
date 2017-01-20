@@ -143,6 +143,76 @@ exports.seed = function(knex, Promise) {
           latitude: null,
           address: 'Nirvana, 8689 Wilshire Blvd, Beverly Hills, CA 90211',
           image: 'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F26808301%2F11777317143%2F1%2Foriginal.jpg?w=800&rect=0%2C183%2C1876%2C938&s=0130c10754a09835c12d79222286b0b6'
+        }),
+        knex('allevents').insert({
+          title: 'Teacher Workshop: The Science and Economics of Concrete February 11th, 2017',
+          host: 'Buena Park High School',
+          desc: 'Project Cornerstone is offering a workshop for middle school and elementary teachers on the science and economics of the natural resources used in producing concrete. This workshop will provide rock solid tools and hands-on activities to implement in the classroom that will keep students engaged and excited about learning science, technology, engineering, math (STEM), history and economics.',
+          attendees: 23,
+          costlower: 0,
+          costupper: 0,
+          starttime: new Date(2017, 1, 11, 9, 0),
+          endtime: new Date(2017, 1, 11, 13, 0),
+          longitude: null,
+          latitude: null,
+          address: 'Buena Park High School, 8833 Accdemy Dr, Buena Park, CA 90621',
+          image: 'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F24588808%2F105611625381%2F1%2Foriginal.jpg?w=800&rect=0%2C0%2C2160%2C1080&s=f5b4c0307eee5e57d3d93a867ef8f0a3'
+        }),
+        knex('allevents').insert({
+          title: 'WALE Live @ The MARKE in Downtown LA',
+          host: 'RaveLife Events',
+          desc: 'Get ready for a special event!!\n\nMMG Hip Hop Superstar\n\n** WALE **\n\nLive inside the Brand New Marke Nightclub in Downtown LA along with Special Guests!\n\n21+ Only / Valid Govt Issued ID, Dress Code Enforced',
+          attendees: 94,
+          costlower: 20,
+          costupper: 20,
+          starttime: new Date(2017, 0, 21, 22, 0),
+          endtime: new Date(2017, 0, 22, 3, 0),
+          longitude: null,
+          latitude: null,
+          address: 'The Marke, 3311 South Main Street, Los Angeles, CA 90007',
+          image: 'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F27452275%2F1318072370%2F1%2Foriginal.jpg?w=800&rect=0%2C111%2C682%2C341&s=22eceb9670e78c83ba77f10ec7d05109'
+        }),
+        knex('allevents').insert({
+          title: 'Seattle Camp Fair - RSVP',
+          host: 'ParentMap',
+          desc: 'Get into summer planning mode for your kids at this FREE event!\n\nJoin ParentMap at Safeco Field in Seattle to explore hundreds of ideas for summer fun at this FREE, family-friendly (kids welcome!) annual event. Camp Fair brings together many camps, schools and summer activity centers from all across Puget Sound and beyond, for preschoolers to teens.',
+          attendees: 40,
+          costlower: 0,
+          costupper: 0,
+          starttime: new Date(2017, 1, 25, 10, 0),
+          endtime: new Date(2017, 1, 25, 14, 0),
+          longitude: null,
+          latitude: null,
+          address: 'Safeco Field, 1250 1st Avenue South, Seattle, WA 98134',
+          image: 'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F25754137%2F65404187787%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C0%2C960%2C480&s=1ebc7f1c6464688ffab99dc6b118758f'
+        }),
+        knex('allevents').insert({
+          title: 'USA Gap Year Fair 2017 - Seattle, WA',
+          host: 'USA Gap Year Fairs',
+          desc: 'Come join us in Seattle, WA on Thursday, February 16th from 6:00 to 8:30 PM for an incredible FREE opportunity to learn about a number of life-changing gap year programs from around the world!',
+          attendees: 20,
+          costlower: 0,
+          costupper: 0,
+          starttime: new Date(2017, 1, 16, 18, 0),
+          endtime: new Date(2017, 1, 16, 20, 30),
+          longitude: null,
+          latitude: null,
+          address: 'Roosevelt High School, 1410 NE 66th St, Seattle, WA',
+          image: 'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F26734398%2F197260912795%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C0%2C960%2C480&s=5bf4e18ef793dad1b29e0b9841393036'
+        }),
+        knex('allevents').insert({
+          title: 'Electricity',
+          host: 'Seattle Psy Ops',
+          desc: 'Seattle PsyOps returns to Substation for our biggest event yet!\n\nExpect an immersive environment, Substation\'s stella KV2 sound, mind-warping deco, and a 2nd room to lounge around and chill out in. This will be one for the books. You won\'t want to miss it!\n\nFeaturing\n\nERIK BRAZIUNAS\n\n& CAPTAIN TRIPPS',
+          attendees: 200,
+          costlower: 13,
+          costupper: 20,
+          starttime: new Date(2017, 0, 20, 21, 0),
+          endtime: new Date(2017, 0, 21, 3, 0),
+          longitude: null,
+          latitude: null,
+          address: 'Substation Seattle, 645 Northwest 45th Street, Seattle, WA 98107',
+          image: 'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F27502718%2F25054581933%2F1%2Foriginal.jpg?w=800&rect=110%2C0%2C630%2C315&s=65cd59f68177b6f9cf9b7293e4aeceed'
         })
       ]);
     });
