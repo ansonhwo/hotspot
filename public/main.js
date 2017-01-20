@@ -32,6 +32,15 @@ const menuBar = new Vue({
       this.host = event.target.dataset.host
       document.querySelector('#current-user .text').textContent = event.target.innerText
     },
+    activeRadius: function(event) {
+      let radius = document.getElementById('radius')
+      if (event.target.value) {
+        radius.classList.remove('disabled')
+      }
+      else {
+        radius.classList.add('disabled')
+      }
+    },
     // User enters an event search query
     searchEvents: function() {
       // Streamline the search query
@@ -52,12 +61,25 @@ const menuBar = new Vue({
         fetch('/search/events?q=' + query)
           .then(response => response.json())
           .then(response => {
+            const radius = document.getElementById('radius').value
+            const location = document.getElementById('location').value
+
             // Show results view and append search query results
             landing.active = false
             detailsView.active = false
-            formatDisplayStrings(response)
-            resultsView.events = response
-            resultsView.active = true
+
+            // Filter events by location & radius (if specified)
+            distanceMatrix(location, response, radius)
+              .then(nearby => {
+                formatDisplayStrings(nearby)
+                resultsView.events = nearby
+                resultsView.active = true
+              })
+              .catch(_ => {
+                formatDisplayStrings(response)
+                resultsView.events = response
+                resultsView.active = true
+              })
           })
           .catch(err => console.log(err))
       }
@@ -148,15 +170,18 @@ const detailsView = new Vue({
 /******************************/
 // Traverses the DOM and returns the first element found with the provided class name
 function getElementData(element, data) {
+
   while (!element.classList.contains(data)) {
     element = element.parentElement
   }
 
   return element
+
 }
 
 // Formats day & time display strings based on event details
 function formatDisplayStrings(eventList) {
+
   eventList.map((event) => {
     event.startDayFormatted = moment(event.starttime).format('ddd, MMMM Do YYYY')
     event.startTimeFormatted = moment(event.starttime).format('h:mm A')
@@ -179,7 +204,54 @@ function formatDisplayStrings(eventList) {
     else if (event.costlower === event.costupper) event.costString = `$${event.costlower}`
     else event.costString = `$${event.costlower} - $${event.costupper}`
   })
+
 }
+
+// Filters out event results based on proximity
+function distanceMatrix(location, eventList, radius) {
+
+  return new Promise((resolve, reject) => {
+    if (!location) reject('No location specified')
+    else {
+      const service = new google.maps.DistanceMatrixService
+
+      // Call to the Google Distance Matrix API
+      service.getDistanceMatrix({
+        origins: [location],
+        destinations: eventList.map((event) => { return event.address }),
+        travelMode: 'DRIVING',
+        unitSystem: google.maps.UnitSystem.IMPERIAL
+      }, (response, status) => {
+        if (status !== 'OK') reject(`Error: ${status}`)
+        else {
+          // Normalize search radius if radius has not been specified
+          if (radius) {
+            radius = parseInt(radius.split(' ')[0])
+          }
+          else {
+            radius = 25
+          }
+          // Return a filtered list of events that are within the geographical radius
+          resolve( eventList.filter((event, index) => {
+            let distance = parseInt(response.rows[0].elements[index].distance.text.split(' ')[0].replace(/,/g, ''))
+            return distance < radius
+          }) )
+        }
+      })
+    }
+  })
+
+}
+
+// Adds Google Places autocomplete library to user location search
+function AutocompleteDirectionsHandler() {
+
+  const originInput = document.getElementById('location')
+  const originAutocomplete = new google.maps.places.Autocomplete(originInput, { placeIdOnly: true })
+
+}
+
+new AutocompleteDirectionsHandler()
 
 /******************************/
 // Initializations
