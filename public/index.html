@@ -4,10 +4,78 @@
     <title>Hotspot</title>
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800|Fjalla+One" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.3.4/flatpickr.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css">
   </head>
   <body>
+    <div id="add-event" class="ui page dimmer" v-bind:class="{ active: active }" v-show="active">
+      <div class="content">
+        <div class="center">
+          <div class="ui compact positive message" v-if="created">
+            <div class="header">
+              Your event has been successfully created!
+            </div>
+            <p>Bringing you back to the main page...</p>
+          </div>
+          <div class="ui compact negative message" v-if="error">
+            <div class="header">
+              Sorry, there was an error with your event submission.
+            </div>
+          </div>
+          <div class="ui container add-event-form">
+            <button class="circular ui icon huge basic close button" @click="close">
+              <i class="remove icon"></i>
+            </button>
+            <p>Add Event</p>
+            <button class="ui grey button clear" @click="clearForm">Clear All</button>
+            <form class="ui form" @submit.prevent @submit="createEvent($event)">
+              <div class="field">
+                <label>Title</label>
+                <input type="text" name="title" placeholder="Enter an event title" required>
+              </div>
+              <div class="field">
+                <label>Host</label>
+                <input type="text" name="host" placeholder="Enter an event host" required>
+              </div>
+              <div class="field">
+                <label>Address</label>
+                <input type="text" name="address" placeholder="Enter an address">
+              </div>
+              <div class="two fields">
+                <div class="field">
+                  <label>Start Date/Time</label>
+                  <input class="datetime-start" type="text" name="starttime" placeholder="Pick a date/time">
+                </div>
+                <div class="field">
+                  <label>End Date/Time</label>
+                  <input class="datetime-end" type="text" name="endtime" placeholder="Pick a date/time">
+                </div>
+              </div>
+              <div class="two fields">
+                <div class="field">
+                  <label>Min Cost</label>
+                  <input type="text" name="mincost" placeholder="$ amount">
+                </div>
+                <div class="field">
+                  <label>Max Cost</label>
+                  <input type="text" name="maxcost" placeholder="$ amount">
+                </div>
+              </div>
+              <div class="field">
+                <label>Description</label>
+                <textarea name="desc" rows="5"></textarea>
+              </div>
+              <div class="field">
+                <label>Image URL</label>
+                <input type="text" name="image" placeholder="Image link">
+              </div>
+              <button class="ui button submit" type="submit">Create Event</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="menubar" class="ui attached menu">
       <a id="logo" class="item" @click="viewLanding">
         <span class="logotext"><i>hotspot</i>.</span>
@@ -37,6 +105,7 @@
         </form>
       </div>
       <div class="right menu">
+        <a class="ui item" v-show="host" @click="addEventActive">Add Event</a>
         <div class="ui item">
           <div id="current-user" class="ui simple dropdown">
             <div class="text" v-bind:class="{ host: host }">Login</div>
@@ -131,6 +200,7 @@
       crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.3.4/flatpickr.min.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
