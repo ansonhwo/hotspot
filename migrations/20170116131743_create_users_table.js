@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     table.string('name').notNullable()
     table.string('email').unique().notNullable()
     table.boolean('host')
+    table.specificType('registered', 'integer[]')
   })
 
   return query

@@ -7,22 +7,26 @@ exports.seed = function(knex, Promise) {
         knex('users').insert({
           name: 'Anson',
           email: 'ahwong19@gmail.com',
-          host: true
+          host: true,
+          registered: []
         }),
         knex('users').insert({
           name: 'Kyle',
           email: 'kyle@gmail.com',
-          host: true
+          host: true,
+          registered: []
         }),
         knex('users').insert({
           name: 'Amanda',
           email: 'amanda@gmail.com',
-          host: false
+          host: false,
+          registered: []
         }),
         knex('users').insert({
           name: 'James',
           email: 'james@gmail.com',
-          host: false
+          host: false,
+          registered: []
         })
       ]);
     });

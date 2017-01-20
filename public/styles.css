@@ -159,13 +159,26 @@ body {
   min-width: 700px;
 }
 
+#detail-card {
+  margin-bottom: 0;
+}
+
+#detail-card .regstatus {
+  color: #fff;
+  background-color: #d20915;
+  font-size: 12pt;
+}
+
 #detail-card .title {
   font-size: 16pt;
-  width: 50%;
+}
+
+#detail-card .main {
+  width: 60%;
 }
 
 #detail-card .datetime {
-  width: 30%;
+  width: 40%;
 }
 
 #detail-card .date,
