@@ -138,7 +138,9 @@ const detailsView = new Vue({
   data: {
     active: false,
     details: null,
-    showTime: false
+    showTime: false,
+    registered: false,
+    unregistered: true
   },
   methods: {
     // Display function that renders the time based on the listed days of the event
@@ -152,14 +154,59 @@ const detailsView = new Vue({
       const theEvent = getElementData(event.target, 'event')
 
       // Filter out information related to the clicked event
-      const eventInfo = eventList.filter((eventItem) => {
+      this.details = eventList.filter((eventItem) => {
         return eventItem.id == theEvent.dataset.eventid
-      })
+      })[0]
 
-      // Render clicked event details
-      this.details = eventInfo[0]
       this.checkTime()
+
+      // Check if the user is currently registered for the event
+      const user = document.querySelector('#current-user .text').textContent
+      if (user !== 'Login') {
+        fetch(`/events/reg/${user}`)
+          .then(response => response.json())
+          .then(([ response ]) => {
+            if (response.registered.includes(this.details.id)) {
+              this.registered = true
+              this.unregistered = false
+            }
+            else {
+              this.registered = false
+              this.unregistered = true
+            }
+          })
+          .catch(err => console.log(err))
+      }
+
       this.active = true
+    },
+    // Update the registration status of the current user
+    updateRegistration: function(event) {
+      const user = document.querySelector('#current-user .text').textContent
+      console.log(`id=${this.details.id}&email=${user}`)
+      if (user !== 'Login') {
+        const options = {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `id=${this.details.id}&email=${user}`
+        }
+
+        fetch('/users/reg', options)
+          .then(response => response.json())
+          .then(response => {
+            if (response.registered) {
+              this.registered = true
+              this.unregistered = false
+            }
+            else {
+              this.registered = false
+              this.unregistered = true
+            }
+          })
+          .catch(err => console.log(err))
+      }
     }
   }
 

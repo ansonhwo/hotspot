@@ -115,6 +115,8 @@
               </div>
             </div>
           </div>
+          <div class="ui bottom attached red button" v-show="unregistered" @click="updateRegistration($event)">Register</div>
+          <div class="ui bottom attached grey button" v-show="registered" @click="updateRegistration($event)">Unregister</div>
         </div>
       </template>
     </div>

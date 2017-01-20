@@ -159,6 +159,10 @@ body {
   min-width: 700px;
 }
 
+#detail-card {
+  margin-bottom: 0;
+}
+
 #detail-card .title {
   font-size: 16pt;
   width: 50%;
