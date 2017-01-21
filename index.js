@@ -51,8 +51,13 @@ app.get('/events/reg/:email', (req, res) => {
 })
 
 app.post('/events/create', (req, res) => {
+  const formData = req.body
+  
+  for (key in formData) {
+    if (!formData[key]) delete formData[key]
+  }
   knex('allevents')
-    .insert(req.body, 'title')
+    .insert(formData, 'title')
     .then((result) => { res.status(201).json(result) })
     .catch((err) => res.sendStatus(404))
 })
