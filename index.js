@@ -10,7 +10,7 @@ const knex = require('knex')({
 const app = express()
 
 app.use(express.static('public'))
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 // Get a list of all events that match the search query
 app.get('/search/events', (req, res) => {
@@ -47,6 +47,18 @@ app.get('/events/reg/:email', (req, res) => {
     .select('registered')
     .where('email', req.params.email)
     .then((result) => { res.json(result) })
+    .catch((err) => res.sendStatus(404))
+})
+
+app.post('/events/create', (req, res) => {
+  const formData = req.body
+  
+  for (key in formData) {
+    if (!formData[key]) delete formData[key]
+  }
+  knex('allevents')
+    .insert(formData, 'title')
+    .then((result) => { res.status(201).json(result) })
     .catch((err) => res.sendStatus(404))
 })
 

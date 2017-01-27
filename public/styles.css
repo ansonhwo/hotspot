@@ -36,7 +36,45 @@ body {
   height: 42px;
 }
 
-#current-user {
+#add-event .add-event-form {
+  position: relative;
+  padding: 50px 80px;
+  border-radius: 10px;
+  width: 45%;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+}
+
+#add-event .close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#add-event .add-event-form > p {
+  margin-bottom: 10px;
+  color: #d20915;
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 24pt;
+}
+
+#add-event .clear {
+  margin-bottom: 20px;
+}
+
+#add-event .add-event-form form,
+#add-event .add-event-form input {
+  text-align: center;
+  font-size: 11pt;
+}
+
+#add-event .submit {
+  color: #fff;
+  background-color: #d20915;
+}
+
+#menubar .right {
   font-size: 12pt;
 }
 

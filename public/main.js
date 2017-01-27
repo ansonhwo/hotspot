@@ -6,6 +6,77 @@ let query = ''
 /******************************/
 // DOM related Vue handlers
 /******************************/
+const addEventView = new Vue({
+
+  el: '#add-event',
+  data: {
+    active: false,
+    created: false,
+    error: false
+  },
+  methods: {
+    close: function() {
+      this.active = false
+    },
+    createEvent: function(event) {
+      const formData = new FormData(event.target)
+      const data = {
+        title: formData.get('title'),
+        host: formData.get('host'),
+        desc: formData.get('desc'),
+        costlower: formData.get('mincost'),
+        costupper: formData.get('maxcost'),
+        starttime: formData.get('starttime'),
+        endtime: formData.get('endtime'),
+        address: formData.get('address'),
+        image: formData.get('image')
+      }
+
+      this.createEventRequest(data)
+        .then(response => {
+          if (response.status !== 404) {
+            this.created = true
+            this.error = false
+            setTimeout(() => {
+              this.close()
+              this.clearForm()
+            }, 4000)
+          }
+          else {
+            this.error = true
+          }
+        })
+        .catch(err => {
+          this.error = true
+          console.log(err)
+        })
+    },
+    createEventRequest: function(data) {
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }
+
+      return fetch('/events/create', options)
+    },
+    clearForm: function() {
+      const form = document.querySelector('#add-event form')
+      const inputs = form.getElementsByTagName('input')
+      const textareas = form.getElementsByTagName('textarea')
+      for (let index = 0; index < inputs.length; index++) {
+        inputs[index].value = ''
+      }
+      for (let index = 0; index < textareas.length; index++) {
+        textareas[index].value = ''
+      }
+    }
+  }
+
+})
+
 const menuBar = new Vue({
 
   el: '#menubar',
@@ -32,6 +103,7 @@ const menuBar = new Vue({
       this.host = event.target.dataset.host
       document.querySelector('#current-user .text').textContent = event.target.innerText
     },
+    // User has entered something in the location bar
     activeRadius: function(event) {
       let radius = document.getElementById('radius')
       if (event.target.value) {
@@ -40,6 +112,12 @@ const menuBar = new Vue({
       else {
         radius.classList.add('disabled')
       }
+    },
+    // Toggle the Add Event view
+    addEventActive: function() {
+      addEventView.created = false
+      addEventView.error = false
+      addEventView.active = true
     },
     // User enters an event search query
     searchEvents: function() {
@@ -190,9 +268,14 @@ const detailsView = new Vue({
         const options = {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
           },
-          body: `id=${this.details.id}&email=${user}`
+          body: JSON.stringify(
+            {
+              id: this.details.id,
+              email: user
+            }
+          )
         }
 
         // Get current registration status for the event in question
@@ -307,5 +390,8 @@ new AutocompleteDirectionsHandler()
 /******************************/
 // Initializations
 /******************************/
+document.querySelector('#add-event .datetime-start').flatpickr({ enableTime: true })
+document.querySelector('#add-event .datetime-end').flatpickr({ enableTime: true })
+
 menuBar.getUsers()
 landing.getFeatured()
