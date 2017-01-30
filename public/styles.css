@@ -1,7 +1,6 @@
-body {
-  font-family: 'Work Sans', sans-serif;
-  margin: 0;
-  font-weight: 300;
+* {
+  font-family: 'Fira Sans Condensed', sans-serif;
+  font-weight: 400;
 }
 
 #logo {
@@ -34,6 +33,11 @@ body {
 
 #radius {
   height: 42px;
+}
+
+#search input,
+#add-event input {
+  font-family: 'Fira Sans Condensed', sans-serif;
 }
 
 #add-event .add-event-form {
@@ -105,7 +109,7 @@ body {
   margin-left: 50%;
   width: 90%;
   color: #fff;
-  font-weight: 900;
+  font-weight: 400;
   font-size: 24pt;
   letter-spacing: 2px;
   text-align: center;
@@ -122,7 +126,7 @@ body {
 #landing .featured {
   padding-left: 20px;
   padding-right: 20px;
-  font-size: 11pt;
+  font-size: 12pt;
   text-align: center;
 }
 
@@ -175,7 +179,7 @@ body {
   overflow: hidden;
   line-height: 1em;
   max-height: 2em;
-  font-weight: 900;
+  font-weight: 600;
   font-size: 18pt;
 }
 
@@ -231,4 +235,10 @@ body {
 
 #detail-card .desc {
   white-space: pre-line;
+}
+
+footer {
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
 }

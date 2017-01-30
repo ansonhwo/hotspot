@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Hotspot</title>
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800|Fjalla+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:100,200,300,400,500,600,700,800,900|Fjalla+One" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.3.4/flatpickr.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -132,7 +132,7 @@
             <div class="image">
               <img v-bind:src="event.image">
             </div>
-            <i class="ui top left attached red label">{{ event.costString }}</i>
+            <div class="ui top left attached red label">{{ event.costString }}</div>
             <div class="event-info">
               <div class="header">
                 <p>{{ event.startDayFormatted }}</p>
@@ -150,7 +150,7 @@
           <a href="#">
             <div class="ui horizontal raised segments event" v-bind:data-eventid="event.id" @click.prevent @click="loadDetails($event)">
               <img class="ui medium image"  v-bind:src="event.image">
-              <i class="ui top left attached label">{{ event.costString }}</i>
+              <div class="ui top left attached label">{{ event.costString }}</div>
               <div class="ui left aligned segment">
                 <p class="startdate">{{ event.startDayFormatted }}</p>
                 <p class="title">{{ event.title }}</p>
