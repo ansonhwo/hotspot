@@ -4,6 +4,11 @@
   font-weight: 400;
 }
 
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
 #logo {
   color: #d20915;
   text-align: center;
@@ -241,10 +246,7 @@
 }
 
 footer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  width: 100%;
   margin-bottom: 10px;
   text-align: center;
 }
