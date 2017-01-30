@@ -1,12 +1,6 @@
 * {
   font-family: 'Fira Sans Condensed', sans-serif;
-  margin: 0;
   font-weight: 400;
-}
-
-html {
-  height: 100%;
-  box-sizing: border-box;
 }
 
 #logo {
@@ -37,15 +31,13 @@ html {
   margin: 0;
 }
 
-#searchbar::-webkit-input-placeholder,
-#searchbar::-moz-placeholder,
-#searchbar:-ms-input-placeholder,
-#searchbar:placeholder {
-  font-family: 'Fira Sans Condensed', sans-serif;
-}
-
 #radius {
   height: 42px;
+}
+
+#search input,
+#add-event input {
+  font-family: 'Fira Sans Condensed', sans-serif;
 }
 
 #add-event .add-event-form {
