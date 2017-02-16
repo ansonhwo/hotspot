@@ -2,11 +2,11 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 let knex
-if (process.env.PORT) {
+if (process.env.DATABASE_URL) {
   // Production
   knex = require('knex')({
     client: 'postgresql',
-    connection: process.env.PORT
+    connection: process.env.DATABASE_URL
   })
 }
 else {
