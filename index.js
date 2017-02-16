@@ -1,13 +1,28 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const knex = require('knex')({
-  client: 'postgresql',
-  connection: {
-    user: 'super',
-    database: 'eventinfo'
-  }
-})
+
+let knex
+if (process.env.PORT) {
+  // Production
+  knex = require('knex')({
+    client: 'postgresql',
+    connection: process.env.PORT
+  })
+}
+else {
+  // Development
+  knex = require('knex')({
+    client: 'postgresql',
+    connection: {
+      user: 'super',
+      database: 'eventinfo'
+    }
+  })
+}
+
 const app = express()
+
+const PORT = process.env.PORT || 9999
 
 app.use(express.static('public'))
 app.use(bodyParser.json())
@@ -52,7 +67,7 @@ app.get('/events/reg/:email', (req, res) => {
 
 app.post('/events/create', (req, res) => {
   const formData = req.body
-  
+
   for (key in formData) {
     if (!formData[key]) delete formData[key]
   }
@@ -103,4 +118,4 @@ app.put('/users/reg', (req, res) => {
     .catch((err) => res.sendStatus(404))
 })
 
-app.listen(9999, () => { console.log('Listening on 9999') })
+app.listen(PORT, () => console.log(`Listening on ${PORT}`))
