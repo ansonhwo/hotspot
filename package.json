@@ -13,6 +13,9 @@
     "seed:make": "knex seed:make",
     "seed:run": "knex seed:run"
   },
+  "engines": {
+    "node": "6.9.4"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ansonhwo/hotspot.git"
