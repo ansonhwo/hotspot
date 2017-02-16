@@ -6,11 +6,15 @@
   "scripts": {
     "start": "node .",
     "watch": "nodemon .",
+    "heroku-postbuild": "run-s migrate seed:run",
     "migrate:make": "knex migrate:make",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed:make": "knex seed:make",
     "seed:run": "knex seed:run"
+  },
+  "engines": {
+    "node": "6.9.4"
   },
   "repository": {
     "type": "git",
@@ -31,6 +35,7 @@
     "vue": "^2.1.8"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "npm-run-all": "^4.0.1"
   }
 }
