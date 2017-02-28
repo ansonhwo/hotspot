@@ -10,3 +10,5 @@ Hotspot is a website that allows anyone to browse and register for local events.
 - Google Places library
 - Flatpickr
 - Moment.js
+
+![hotspot](https://cloud.githubusercontent.com/assets/7650243/23437090/ae1fdb90-fdc1-11e6-8f64-3ee9d37ac5a6.png)
